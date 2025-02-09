@@ -1,0 +1,33 @@
+<form [formGroup]="form()" (submit)="save()">
+    <label>
+        Full Name
+        <input type="text" formControlName="name">
+    </label>
+    <br>
+    <label>
+        Birthdate
+        <input type="email" formControlName="birthdate">
+    </label>
+    <br>
+    <label>
+        Father's Name
+        <input type="text" formControlName="father">
+    </label>
+    <br>
+    <label>
+        Mother's Name
+        <input type="text" formControlName="mother">
+    </label>
+    <br>
+    <label>
+        Grade
+        <input type="text" formControlName="grade_id">
+    </label>
+    <br>
+    <label>
+        Section
+        <input type="text" formControlName="section">
+    </label>
+    <br>
+    <button type="submit" >Save</button>
+</form>
