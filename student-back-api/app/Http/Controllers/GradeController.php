@@ -36,4 +36,16 @@ class GradeController extends Controller
 
         return response()->json($grade, 201);
     }
+
+    public function search () {
+        $listGrade = Grade::all();
+        if ($listGrade->isEmpty()) {
+            $data = [
+                'message'=> 'Not exist grades, remeber create grade from api grade',
+                'status'=> 204
+              ];
+            return response()->json($data, 204);
+        }
+        return response()->json($listGrade, 200);
+    }
 }
