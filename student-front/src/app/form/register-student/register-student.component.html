@@ -28,8 +28,11 @@
             <mat-form-field>
                 <mat-label>Grades</mat-label>
                 <mat-select formControlName="grade_id">
-                  <mat-option value="one">First option</mat-option>
-                  <mat-option value="two">Second option</mat-option>
+                    @for (item of infoGrades; track item.name) {
+                        <mat-option value="{{ item.id }}">{{ item.name }}</mat-option>
+                    } @empty {
+                        <mat-option value=""></mat-option>
+                    }
                 </mat-select>
             </mat-form-field>
             <br>
@@ -45,3 +48,4 @@
         </form>        
     </mat-card-content>
 </mat-card>
+<app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>

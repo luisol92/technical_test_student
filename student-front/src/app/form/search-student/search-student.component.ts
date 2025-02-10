@@ -36,7 +36,6 @@ export class SearchStudentComponent {
   ) {
     this.gradeService.getGrade().subscribe({
       next: (data)=> {
-        console.log(data);
         this.infoGrades = data;
       },
       error: (err) => {
