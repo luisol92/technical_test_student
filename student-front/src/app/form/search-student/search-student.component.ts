@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StudentServiceService } from '../../service/student/student-service.service';
 import { MatCardModule } from '@angular/material/card';
@@ -7,15 +7,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { GradeServiceService } from '../../service/grade/grade-service.service';
+import { ToastService } from '../../service/alert/toast.service';
+import { ToastContainerComponent } from '../toast-container/toast-container.component';
 
 @Component({
   selector: 'app-search-student',
-  imports: [ReactiveFormsModule, MatCardModule, MatSelectModule, MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule],
+  imports: [ReactiveFormsModule, MatCardModule, MatSelectModule, MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule, ToastContainerComponent],
   templateUrl: './search-student.component.html',
   styleUrl: './search-student.component.css'
 })
 export class SearchStudentComponent {
-
   form = signal<FormGroup>(
     new FormGroup(
       {
@@ -24,7 +26,23 @@ export class SearchStudentComponent {
     )
   ); 
 
-  constructor(private studentServiceService: StudentServiceService) { }
+  constructor(private studentServiceService: StudentServiceService,
+              private gradeService: GradeServiceService,
+              private toasService: ToastService
+  ) {
+    this.gradeService.getGrade().subscribe({
+      next: (data)=> {
+        console.log(data);
+      },
+      error: (err) => {
+        if (err?.status == 0) {
+          this.toasService.show({ text: "Remember to start the API server first.", classname: 'bg-danger text-light', delay: 5000 });
+        } else {
+          this.toasService.show({ text: "Error: " + err.status + " -> " + err.statusText, classname: 'bg-danger text-light', delay: 5000 });
+        }
+      }
+    });
+   }
 
   search() {
     if(!this.form().valid) {

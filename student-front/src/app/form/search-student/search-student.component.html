@@ -1,3 +1,7 @@
+<ng-template #standardTpl> I'm a standard toast </ng-template>
+
+<ng-template #successTpl> I'm a success toast </ng-template>
+
 <mat-card appearance="outlined">
     <mat-card-header>
         <mat-card-title>Search Students</mat-card-title>
@@ -19,3 +23,4 @@
         </form>
     </mat-card-content>
 </mat-card>
+<app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
