@@ -18,13 +18,17 @@ import { ToastContainerComponent } from '../toast-container/toast-container.comp
   styleUrl: './search-student.component.css'
 })
 export class SearchStudentComponent {
+
+  infoGrades:any;
+  infoStudents:any;
+
   form = signal<FormGroup>(
     new FormGroup(
       {
         id: new FormControl('', Validators.required)
       }
     )
-  ); 
+  );
 
   constructor(private studentServiceService: StudentServiceService,
               private gradeService: GradeServiceService,
@@ -33,6 +37,7 @@ export class SearchStudentComponent {
     this.gradeService.getGrade().subscribe({
       next: (data)=> {
         console.log(data);
+        this.infoGrades = data;
       },
       error: (err) => {
         if (err?.status == 0) {
@@ -42,24 +47,27 @@ export class SearchStudentComponent {
         }
       }
     });
-   }
+  }
 
   search() {
     if(!this.form().valid) {
-      alert("You must fill in all fields to search students");
+      this.toasService.show({ text: "Error: You must select some grade", classname: 'bg-danger text-light', delay: 2000 });
     } else {
       let idGrade = this.form().value['id'];
       this.studentServiceService.getStudenByGradeId(idGrade).subscribe({
         next: (data) => {
           if (data == null) {
-            alert('Not exist data with id: ' + idGrade);
+            this.toasService.show({ text: 'Not exist data with id: ' + idGrade, classname: 'bg-danger text-light', delay: 2000 });
           } else {
-            console.log(data);
+            this.infoStudents = data;
           }
         },
         error: (error) => {
-          console.log(error);
-          alert("There is Error when try search student !!!")
+          if (error?.status == 0) {
+            this.toasService.show({ text: "Remember to start the API server first.", classname: 'bg-danger text-light', delay: 5000 });
+          } else {
+            this.toasService.show({ text: "Error: " + error.status + " -> " + error.statusText, classname: 'bg-danger text-light', delay: 5000 });
+          }
         }
       });
     }

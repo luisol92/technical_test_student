@@ -12,8 +12,11 @@
             <mat-form-field>
                 <mat-label>Grades</mat-label>
                 <mat-select formControlName="id">
-                  <mat-option value="one">First option</mat-option>
-                  <mat-option value="two">Second option</mat-option>
+                    @for (item of infoGrades; track item.name) {
+                        <mat-option value="{{ item.id }}">{{ item.name }}</mat-option>
+                    } @empty {
+                        <mat-option value=""></mat-option>
+                    }
                 </mat-select>
               </mat-form-field>
             <button mat-fab extended type="submit">
@@ -22,5 +25,36 @@
             </button>
         </form>
     </mat-card-content>
+    <br><br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Alumno</th>
+                <th scope="col">Nacimiento</th>
+                <th scope="col">Padre</th>
+                <th scope="col">Madre</th>
+                <th scope="col">Grado</th>
+                <th scope="col">Sección</th>
+                <th scope="col">Ingreso</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (student of infoStudents; track student.name; let i = $index) {
+                <tr>
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>
+                        {{ student.name }}
+                    </td>
+                    <td> {{ student.birthdate }}</td>
+                    <td> {{ student.father }}</td>
+                    <td> {{ student.mother }}</td>
+                    <td> {{ student.grade_id }}</td>
+                    <td> {{ student.section }}</td>
+                    <td> {{ student.created_at }}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </mat-card>
 <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
