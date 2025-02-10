@@ -56,6 +56,7 @@ export class SearchStudentComponent {
       this.studentServiceService.getStudenByGradeId(idGrade).subscribe({
         next: (data) => {
           if (data == null) {
+            this.infoStudents = null;
             this.toasService.show({ text: 'Not exist data with id: ' + idGrade, classname: 'bg-danger text-light', delay: 2000 });
           } else {
             this.infoStudents = data;

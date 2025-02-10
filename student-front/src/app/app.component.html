@@ -1,1 +1,18 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+	<li [ngbNavItem]="1">
+		<button ngbNavLink>Register Student</button>
+		<ng-template ngbNavContent>
+            <app-register-student></app-register-student>
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="2">
+		<button ngbNavLink>Search Student</button>
+		<ng-template ngbNavContent>
+            <app-search-student></app-search-student>
+		</ng-template>
+	</li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
 <router-outlet />
