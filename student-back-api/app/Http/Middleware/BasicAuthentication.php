@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class BasicAuthentication
 {
-    private const USER = "admin";
+    private const USER = "admin"; //se queman estos datos por temas de pruebas pero relamente deberìa ir a validar la tabla user con esa llave para validar la existencia y permisos
     private const PASS = "admin";
 
     /**

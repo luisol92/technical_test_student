@@ -17,4 +17,9 @@ class Student extends Model
         'grade_id',
         'section',
     ];
+    protected $casts = [
+        'created_at' => 'datetime:d/m/Y',
+        'updated_at' => 'datetime:d/m/Y',
+    ];
+
 }
